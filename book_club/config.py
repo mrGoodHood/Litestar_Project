@@ -16,3 +16,8 @@ class PostgresConfig(BaseModel):
     login: str = Field(alias='POSTGRES_USER')
     password: str = Field(alias='POSTGRES_PASSWORD')
     database: str = Field(alias='POSTGRES_DB')
+
+
+class Config(BaseModel):
+    rabbitmq: RabbitMQConfig = Field(default_factory=lambda: RabbitMQConfig(**env))
+    postgres: PostgresConfig = Field(default_factory=lambda: PostgresConfig(**env))
