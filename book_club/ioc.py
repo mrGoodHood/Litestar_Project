@@ -18,3 +18,5 @@ class AppProvider(Provider):
 @provide(scope=Scope.APP)
 def get_uuid_generator(self) -> interfaces.UUIDGenerator:
     return uuid4
+
+config = from_context(provides=Config, scope=Scope.APP)
