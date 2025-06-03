@@ -15,8 +15,18 @@ from dbook_club.infrastructure.gateways import BookGateway
 
 
 class AppProvider(Provider):
+    pass
+
+
 @provide(scope=Scope.APP)
 def get_uuid_generator(self) -> interfaces.UUIDGenerator:
     return uuid4
 
 config = from_context(provides=Config, scope=Scope.APP)
+
+
+@provide(scope=Scope.APP)
+def get_session_maker(self, config: Config) -> async_sessionmaker[AsyncSession]:
+    return new_session_maker(config.postgres)
+
+
