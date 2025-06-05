@@ -37,3 +37,14 @@ async def get_session(self, session_maker: async_sessionmaker[AsyncSession]) -> 
 ]]:
     async with session_maker() as session:
         yield session
+
+
+book_gateway = provide(
+    BookGateway,
+    scope=Scope.REQUEST,
+    provides=AnyOf[interfaces.BookReader, interfaces.BookSaver]
+)
+
+
+get_book_interactor = provide(GetBookInteractor, scope=Scope.REQUEST)
+create_new_book_interactor = provide(NewBookInteractor, scope=Scope.REQUEST)
