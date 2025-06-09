@@ -22,4 +22,11 @@ class HTTPBookController(Controller):
             book_id: Annotated[UUID, Body(description="Book ID", title="Book ID")],
             interactor: Depends[GetBookInteractor],
     ) -> BookSchema:
-        pass
+        book_dm = await interactor(uuid=str(book_id))
+        if not book_dm:
+            raise HTTPException(status_code=status_codes.HTTP_404_NOT_FOUND, detail="Book not found")
+        return BookSchema(
+            title=book_dm.title,
+            pages=book_dm.pages,
+            is_read=book_dm.is_read,
+        )
