@@ -28,3 +28,13 @@ def get_litestar_app() -> Litestar:
     )
     litestar_integration.setup_dishka(container, litestar_app)
     return litestar_app
+
+
+def get_app():
+    faststream_app = get_faststream_app()
+    litestar_app = get_litestar_app()
+
+    litestar_app.on_startup.append(faststream_app.broker.start)
+    litestar_app.on_shutdown.append(faststream_app.broker.close)
+
+    return litestar_app
