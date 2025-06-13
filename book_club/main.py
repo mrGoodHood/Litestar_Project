@@ -20,3 +20,11 @@ def get_faststream_app() -> FastStream:
     faststream_integration.setup_dishka(container, faststream_app, auto_inject=True)
     broker.include_router(AMQPBookController)
     return faststream_app
+
+
+def get_litestar_app() -> Litestar:
+    litestar_app = Litestar(
+        route_handlers=[HTTPBookController],
+    )
+    litestar_integration.setup_dishka(container, litestar_app)
+    return litestar_app
