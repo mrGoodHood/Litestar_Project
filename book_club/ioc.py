@@ -11,7 +11,7 @@ from book_club.application.interactors import (
 )
 from book_club.config import Config
 from book_club.infrastructure.database import new_session_maker
-from dbook_club.infrastructure.gateways import BookGateway
+from book_club.infrastructure.gateways import BookGateway
 
 
 class AppProvider(Provider):
